@@ -3,13 +3,23 @@ import { Route, Link } from 'react-router-dom'
 import './App.css';
 import Post from './components/Post'
 import { connect } from 'react-redux'
-import { addPost } from './actions'
+import { addPost, getComments } from './actions'
+import ViewPost from './components/ViewPost'
 import { withRouter } from 'react-router'
 
 class App extends Component {
 
+  state= {
+    addPostModalOpen:false
+  }
+
+  componentWillMount() {
+    this.props.posts.forEach(post => {
+      this.props.handleGetCommentsForPost(post.id)
+    })
+  }
+
   renderPosts = (category) => {
-    debugger
     return (
       this.props.posts
       .filter(post =>
@@ -19,15 +29,6 @@ class App extends Component {
       )
     )
   }
-
-  // sortPosts = (sortBy = 'voteScore') => {
-  //   this.setState(prevState => (
-  //     { posts: prevState.posts.sort((el1, el2) =>
-  //                el1[sortBy] - el2[sortBy]
-  //              )
-  //     })
-  //   );
-  // }
 
   render() {
     return (
@@ -60,6 +61,12 @@ class App extends Component {
           </div>
         }/>
 
+        <Route exact path='/post/:post_id' render={({match}) =>
+          <div>
+            <ViewPost postID={match.params.post_id} />
+          </div>
+        }/>
+
         <Route
           path='/category/:category'
           exact
@@ -72,12 +79,13 @@ class App extends Component {
 
         <button
           className="btn"
-          onClick={() => this.props.addPostTrigger(
-            { postTitle:'title', postBody: 'body', author:'rose' })}
+          onClick={() => {this.setState({addPostModalOpen: true})}}
         >
           Add Post
         </button>
-
+        { this.state && this.state.addPostModalOpen && (
+          <ViewPost />
+        )}
       </div>
     );
   }
@@ -92,7 +100,8 @@ function mapStateToProps({ posts, categories }) {
 // map dispatch methods to component props
 function mapDispatchToProps(dispatch) {
   return {
-    addPostTrigger: (data) => dispatch(addPost(data))
+    addPostTrigger: (data) => dispatch(addPost(data)),
+    handleGetCommentsForPost: (data) => dispatch(getComments(data))
   }
 }
 

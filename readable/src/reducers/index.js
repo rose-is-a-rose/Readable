@@ -1,15 +1,30 @@
 import { combineReducers } from 'redux'
-let i = 100;
+
 export default ( state = {}, action) => {
+
   switch (action.type) {
     case 'ADD_POST' :
       const { post } = action;
+
       return {
         ...state,
         posts: [
         	...state.posts,
-        	[i++]: action
+        	post
       	]
+      }
+    case 'ADD_COMMENTS' :
+          debugger
+      // const { post } = action;
+      if (!state.comments) {
+      	state.comments = {};
+    	}
+      return {
+        ...state,
+        comments: {
+        	...state.comments,
+        	[action.postID]: action.comments
+      	}
       }
     default :
       return state
