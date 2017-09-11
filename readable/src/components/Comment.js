@@ -20,6 +20,18 @@ export default function Comment ({ comment }) {
         </span>
         <blockquote>{comment.body}</blockquote>
         <p>Author: {comment.author}</p>
+        <div className="right-align">
+          <button
+            className="btn"
+          >
+            Delete
+          </button>
+          <button
+            className="btn"
+          >
+            Edit
+          </button>
+        </div>
       </div>
     </div>
 	)

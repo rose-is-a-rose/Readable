@@ -5,7 +5,10 @@ import Post from './components/Post'
 import { connect } from 'react-redux'
 import { addPost, getComments } from './actions'
 import ViewPost from './components/ViewPost'
+import AddPost from './components/AddPost'
+import ViewCategories from './components/ViewCategories'
 import { withRouter } from 'react-router'
+import Modal from 'react-modal';
 
 class App extends Component {
 
@@ -35,57 +38,23 @@ class App extends Component {
       <div>
         <div className="App-header">
           <h2>Readable</h2>
-          <div className="row">
-            <div className="col s3 m3 l3">
-              <Link to='/'>
-                <button className="btn btn-large">
-                  home
-                </button>
-              </Link>
-            </div>
-            {this.props.categories && this.props.categories.map(c =>
-              <div key={c.name} className="col s3 m3 l3">
-                <Link to={`/category/${c.path}`}>
-                  <button className="btn btn-large">
-                    {c.name}
-                  </button>
-                </Link>
-              </div>
-            )}
-          </div>
         </div>
 
         <Route exact path='/' render={() =>
-          <div>
-            {this.renderPosts()}
-          </div>
+          <ViewCategories />
         }/>
 
         <Route exact path='/post/:post_id' render={({match}) =>
-          <div>
-            <ViewPost postID={match.params.post_id} />
-          </div>
+          <ViewPost postID={match.params.post_id} />
         }/>
 
         <Route
           path='/category/:category'
           exact
           render={({match}) =>
-            <div>
-              {this.renderPosts(match.params.category)}
-            </div>
+            <ViewCategories category={match.params.category} />
           }
         />
-
-        <button
-          className="btn"
-          onClick={() => {this.setState({addPostModalOpen: true})}}
-        >
-          Add Post
-        </button>
-        { this.state && this.state.addPostModalOpen && (
-          <ViewPost />
-        )}
       </div>
     );
   }

@@ -36,9 +36,7 @@ class AddPost extends Component {
 
   render() {
     return (
-      <Modal contentLabel="Modal"
-        isOpen={this.state.modalOpen}
-      >
+      <div>
         <div className="row">
           <div className="col s6 m4 l4">
             <h4>Add a Post</h4>
@@ -99,14 +97,7 @@ class AddPost extends Component {
         >
           Add Post
         </button>
-
-        <button
-          className="btn"
-          onClick={(e) => this.setState({modalOpen: false})}
-        >
-          Close
-        </button>
-      </Modal>
+      </div>
     );
   }
 }

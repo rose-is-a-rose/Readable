@@ -10,9 +10,6 @@ export default function Post ({ post }) {
 	return (
     <div className="card blue-grey lighten-4">
       <div className="card-content">
-        <span className="card-title text-light-3">
-          POST
-        </span>
         <span className="orange-text text-darken-2 right">
           {convertTimestampToDateTime(post.timestamp)}
           <br/>

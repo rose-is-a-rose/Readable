@@ -3,11 +3,16 @@ import { connect } from 'react-redux'
 import { addPostToServer } from '../actions'
 import Post from '../components/Post'
 import Comment from '../components/Comment'
+import Modal from 'react-modal';
 
 class ViewPost extends Component {
 
   constructor (props){
     super(props);
+  }
+
+  state = {
+    addCommentModalOpen: false
   }
 
   getPostDetailFromStore = () => {
@@ -29,7 +34,22 @@ class ViewPost extends Component {
             <Comment key={comment.id} comment={comment} />
           ))
         }
+        <div className="right-align">
+          <button
+            className="btn"
+            onClick={() => {this.setState({addCommentModalOpen: true})}}
+          >
+            Add Comment
+          </button>
+        </div>
+        <Modal contentLabel="Modal"
+          isOpen={this.state.addCommentModalOpen}
+          onRequestClose={()=> this.setState({addCommentModalOpen: false})}
+        >
+          Hello
+        </Modal>
       </div>
+
     );
   }
 }
