@@ -4,6 +4,7 @@ import { addPostToServer } from '../actions'
 import Post from '../components/Post'
 import Comment from '../components/Comment'
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 
 class ViewPost extends Component {
 

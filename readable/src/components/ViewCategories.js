@@ -25,27 +25,7 @@ class ViewCategories extends Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="col s3 m3 l3">
-            <Link to='/'>
-              <button className="btn btn-large">
-                home
-              </button>
-            </Link>
-          </div>
-          {this.props.categories && this.props.categories.map(c =>
-            <div key={c.name} className="col s3 m3 l3">
-              <Link to={`/category/${c.path}`}>
-                <button className="btn btn-large">
-                  {c.name}
-                </button>
-              </Link>
-            </div>
-          )}
-        </div>
-
         {this.renderPosts(this.props.category)}
-
         <button
           className="btn"
           onClick={() => {this.setState({addPostModalOpen: true})}}

@@ -1,6 +1,9 @@
 .padding_left_small {
   padding-left: 20px;
 }
+.full_width {
+  width: 100%;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

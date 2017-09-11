@@ -36,9 +36,20 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div className="App-header">
-          <h2>Readable</h2>
-        </div>
+        <nav>
+          <div className="nav-wrapper">
+            <Link to="/" className="brand-logo left">Readable</Link>
+            <ul id="nav-mobile" className="right">
+              {this.props.categories && this.props.categories.map(c =>
+                <li key={c.name}>
+                  <Link to={`/category/${c.path}`}>
+                    {c.name}
+                  </Link>
+                </li>
+              )}
+            </ul>
+          </div>
+        </nav>
 
         <Route exact path='/' render={() =>
           <ViewCategories />
@@ -63,7 +74,7 @@ class App extends Component {
 // map redux state to component props
 function mapStateToProps({ posts, categories }) {
 
- return { posts, categories};
+ return { posts, categories };
 }
 
 // map dispatch methods to component props
