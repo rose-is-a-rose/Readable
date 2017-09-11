@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
 import { connect } from 'react-redux'
 import { addPostToServer } from '../actions'
 import ReactMaterialSelect from 'react-material-select'
 import 'react-material-select/lib/css/reactMaterialSelect.css'
 
 class AddPost extends Component {
-
-  constructor (props){
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
   state= {
     id: '',
@@ -24,7 +18,7 @@ class AddPost extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-      this.props.handleAddPost({
+    this.props.handleAddPost({
       title:this.state.title,
       body:this.state.body,
       author:this.state.author,

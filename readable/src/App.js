@@ -8,13 +8,8 @@ import ViewPost from './components/ViewPost'
 import AddPost from './components/AddPost'
 import ViewCategories from './components/ViewCategories'
 import { withRouter } from 'react-router'
-import Modal from 'react-modal';
 
 class App extends Component {
-
-  state= {
-    addPostModalOpen:false
-  }
 
   componentWillMount() {
     this.props.posts.forEach(post => {
@@ -80,7 +75,6 @@ function mapStateToProps({ posts, categories }) {
 // map dispatch methods to component props
 function mapDispatchToProps(dispatch) {
   return {
-    addPostTrigger: (data) => dispatch(addPost(data)),
     handleGetCommentsForPost: (data) => dispatch(getComments(data))
   }
 }

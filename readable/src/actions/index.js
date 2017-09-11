@@ -23,9 +23,8 @@ export const addPostToServer = (post) => dispatch => (
 )
 
 export const getComments = (postID) => dispatch => {
-	debugger
 	getCommentsForPost(postID)
-	.then(res => { debugger;
+	.then(res => {
 		dispatch(addComments(postID, res));
 	})
 }

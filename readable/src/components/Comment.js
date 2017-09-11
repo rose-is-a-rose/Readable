@@ -6,7 +6,6 @@ function convertTimestampToDateTime (timestamp) {
 }
 
 export default function Comment ({ comment }) {
-
 	return (
     <div className="card blue-grey lighten-5">
       <div className="card-content">
@@ -21,14 +20,10 @@ export default function Comment ({ comment }) {
         <blockquote>{comment.body}</blockquote>
         <p>Author: {comment.author}</p>
         <div className="right-align">
-          <button
-            className="btn"
-          >
+          <button className="btn">
             Delete
           </button>
-          <button
-            className="btn"
-          >
+          <button className="btn">
             Edit
           </button>
         </div>

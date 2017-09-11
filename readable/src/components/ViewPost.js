@@ -57,7 +57,6 @@ class ViewPost extends Component {
 
 // map redux state to component props
 function mapStateToProps({ posts, comments }) {
-  debugger
  return { posts, comments };
 }
 

@@ -14,8 +14,6 @@ export default ( state = {}, action) => {
       	]
       }
     case 'ADD_COMMENTS' :
-          debugger
-      // const { post } = action;
       if (!state.comments) {
       	state.comments = {};
     	}
