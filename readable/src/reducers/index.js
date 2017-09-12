@@ -1,5 +1,10 @@
 // import { combineReducers } from 'redux'
-import { ADD_POST, ADD_COMMENTS, DELETE_COMMENTS } from '../actions';
+import {
+	ADD_POST,
+	ADD_COMMENTS,
+	DELETE_COMMENTS,
+	UPDATE_COMMENT
+} from '../actions';
 
 export default ( state = {}, action) => {
 
@@ -15,10 +20,9 @@ export default ( state = {}, action) => {
       	]
       }
     case DELETE_COMMENTS :
-    	debugger
       const { deletedComment } = action;
 
-      const siblingComments = state.comments[deletedComment.parentId];
+      let siblingComments = state.comments[deletedComment.parentId];
 
       siblingComments.find(c =>
       	c.id === deletedComment.id
@@ -31,6 +35,7 @@ export default ( state = {}, action) => {
         	[deletedComment.parentId]: siblingComments
       	}
       }
+
     case ADD_COMMENTS :
       if (!state.comments) {
       	state.comments = {};
@@ -43,6 +48,24 @@ export default ( state = {}, action) => {
         comments: {
         	...state.comments,
         	[action.postID]: state.comments[action.postID].concat(action.comments)
+      	}
+      }
+    case UPDATE_COMMENT :
+    debugger
+      const { id, body, timestamp, parentId } = action.comment;
+
+      siblingComments = state.comments[parentId];
+      const commentToUpdate = siblingComments.find(c =>
+      	c.id === id
+    	);
+      commentToUpdate.body = body;
+      commentToUpdate.timestamp = timestamp;
+
+      return {
+        ...state,
+        comments: {
+        	...state.comments,
+        	[parentId]: siblingComments
       	}
       }
     default :

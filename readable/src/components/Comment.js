@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import Modal from 'react-modal';
 import { deleteCommentToServer } from '../actions'
+import AddComment from '../components/AddComment'
 
 function convertTimestampToDateTime (timestamp) {
   const date = new Date(timestamp);
@@ -9,6 +11,10 @@ function convertTimestampToDateTime (timestamp) {
 
 // const Comment = ({ comment }) => {
 class Comment extends Component {
+
+  state = {
+    editCommentModalOpen: false
+  }
 
 	render() {
 
@@ -25,20 +31,33 @@ class Comment extends Component {
             <br/>
             Vote: {comment.voteScore}
           </span>
-          <blockquote>{comment.body}</blockquote>
           <p>Author: {comment.author}</p>
-          <div className="right-align">
-            <button
-              className="btn"
-              onClick={()=>this.props.handleDeleteComment(comment.id)}
-            >
-              Delete
-            </button>
-            <button className="btn">
-              Edit
-            </button>
+          <blockquote>{comment.body}</blockquote>
+          <div className="row">
+            <div className="col offset-s6 offset-m6 offset-l6 s3 m3 l3">
+              <button
+                className="btn full-width"
+                onClick={()=>this.props.handleDeleteComment(comment.id)}
+              >
+                Delete
+              </button>
+            </div>
+            <div className="col s3 m3 l3">
+              <button
+                className="btn full-width"
+                onClick={()=>this.setState({editCommentModalOpen: true})}
+              >
+                Edit
+              </button>
+            </div>
           </div>
         </div>
+        <Modal contentLabel="Modal"
+          isOpen={this.state.editCommentModalOpen}
+          onRequestClose={()=> this.setState({editCommentModalOpen: false})}
+        >
+          <AddComment commentID={comment.id} postID={comment.parentId} />
+        </Modal>
       </div>
   	)
   }

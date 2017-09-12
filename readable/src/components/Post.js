@@ -23,14 +23,14 @@ export default function Post ({ post }) {
             {post.category} - {post.title}
           </a>
         </p>
+        <p className="grey-text text-darken-4">
+          Author: {post.author}
+        </p>
         <blockquote className="grey-text text-darken-4">
           <p className="flow-text">
             {post.body}
           </p>
         </blockquote>
-        <p className="grey-text text-darken-4">
-          Author: {post.author}
-        </p>
       </div>
     </div>
 	)

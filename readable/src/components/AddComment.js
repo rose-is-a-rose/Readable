@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { addCommentToServer } from '../actions'
+import { addCommentToServer, updateCommentToServer } from '../actions'
 
 class AddComment extends Component {
 
@@ -9,9 +9,22 @@ class AddComment extends Component {
     author: ''
   }
 
-  handleSubmit = (e) => {
+  componentDidMount() {
+    if (this.props.commentID && this.props.comments) {
+      const comment = this.props.comments[this.props.postID].find(c =>
+        c.id == this.props.commentID
+      );
+      if (comment) {
+        this.setState({
+          body: comment.body,
+          author: comment.author
+        })
+      };
+    }
+  }
+
+  handleAddPost = (e) => {
     e.preventDefault()
-    debugger
     this.props.handleAddComment({
       body:this.state.body,
       author:this.state.author,
@@ -21,11 +34,29 @@ class AddComment extends Component {
     })
   }
 
+  handleUpdatePost = (e) => {
+    e.preventDefault()
+    this.props.handleUpdateComment({
+      body:this.state.body,
+      timestamp: new Date().getTime(),
+      id: this.props.commentID
+    })
+  }
+
   render() {
+    const existingComment = !!this.props.commentID;
+
     return (
       <div>
-        <h4>Add a Comment</h4>
+        <h4>
+          {existingComment ? 'Update Comment' : 'Add a Comment'}
+        </h4>
         <div className="input-field">
+          <label className="active"
+            htmlFor="body"
+          >
+            Comment
+          </label>
           <input
             id="body"
             type="text"
@@ -34,35 +65,48 @@ class AddComment extends Component {
             })}
             value={this.state.body}
           />
-          <label htmlFor="body">Comment</label>
         </div>
-        <div className="input-field">
-          <input
-            id="author"
-            type="text"
-            onChange={(e) => this.setState({
-              author: e.target.value
-            })}
-            value={this.state.author}
-          />
-          <label htmlFor="author">Author</label>
-        </div>
-        <button
-          className="btn right"
-          onClick={(e) => this.handleSubmit(e)}
+        {!existingComment && (
+          <div className="input-field">
+            <label className="active"
+              htmlFor="author"
+            >
+              Author
+            </label>
+            <input
+              id="author"
+              type="text"
+              onChange={(e) => this.setState({
+                author: e.target.value
+              })}
+              value={this.state.author}
+            />
+          </div>
+        )}
+        <button className="btn right"
+          onClick={(e) => (this.props.commentID
+                        ? this.handleUpdatePost(e)
+                        : this.handleAddPost(e))}
         >
-          Add Comment
+          Save
         </button>
       </div>
     );
   }
 }
 
+
+// map redux state to component props
+function mapStateToProps({ comments }) {
+  return { comments };
+}
+
 // map dispatch methods to component props
 function mapDispatchToProps(dispatch) {
   return {
-    handleAddComment: (data) => dispatch(addCommentToServer(data))
+    handleAddComment: (data) => dispatch(addCommentToServer(data)),
+    handleUpdateComment: (data) => dispatch(updateCommentToServer(data))
   }
 }
 
-export default connect(null, mapDispatchToProps)(AddComment);
+export default connect(mapStateToProps, mapDispatchToProps)(AddComment);

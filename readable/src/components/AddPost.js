@@ -63,9 +63,8 @@ class AddPost extends Component {
           <label htmlFor="title">Post Title</label>
         </div>
         <div className="input-field">
-          <textarea
+          <textarea className="materialize-textarea"
             id="body"
-            className="materialize-textarea"
             onChange={(e) => this.setState({
               body: e.target.value
             })}

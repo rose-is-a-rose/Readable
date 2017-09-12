@@ -1,7 +1,12 @@
 .padding_left_small {
   padding-left: 20px;
 }
+
 .full_width {
+  width: 100%;
+}
+
+.full-width {
   width: 100%;
 }
 

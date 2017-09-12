@@ -2,12 +2,14 @@ import {
 	addNewPost,
 	getCommentsForPost,
 	addNewComment,
-	deleteComment
+	deleteComment,
+	updateComment
 } from '../utils/api';
 
 export const ADD_POST = 'ADD_POST';
 export const ADD_COMMENTS = 'ADD_COMMENTS';
 export const DELETE_COMMENTS = 'DELETE_COMMENTS';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 
 export const addPost = ( post ) => (
  {
@@ -21,6 +23,12 @@ export const addComments = ( postID, comments ) => (
 		type: ADD_COMMENTS,
 		postID,
 		comments
+	}
+)
+export const updateCommentToStore = ( comment ) => (
+	{
+		type: UPDATE_COMMENT,
+		comment
 	}
 )
 
@@ -40,6 +48,12 @@ export const addPostToServer = ( post ) => dispatch => (
 export const addCommentToServer = ( comment ) => dispatch => (
   addNewComment(comment).then((res) => {
 		dispatch(addComments(comment.parentId, res))
+	})
+)
+
+export const updateCommentToServer = ( comment ) => dispatch => (
+  updateComment(comment).then((res) => {
+		dispatch(updateCommentToStore(res))
 	})
 )
 

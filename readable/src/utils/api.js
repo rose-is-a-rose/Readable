@@ -70,3 +70,23 @@ export const deleteComment = (commentID) => (
 	fetch(`${api}/comments/${commentID}`, { headers, method: 'DELETE' })
   .then((res) => res.json())
 )
+
+/**
+PUT /comments/:id
+USAGE:
+  Edit the details of an existing comment
+
+PARAMS:
+  timestamp: timestamp. Get this however you want.
+  body: String
+ */
+export const updateComment = ({id, body, timestamp}) => (
+	fetch(
+		`${api}/comments/${id}`,
+		{
+			headers,
+			method: 'PUT',
+			body: JSON.stringify({body, timestamp})
+		}
+	).then((res) => res.json())
+)
