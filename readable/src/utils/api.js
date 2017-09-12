@@ -29,6 +29,22 @@ export const addNewPost = (post) => (
 	.then((res) => res.json())
 )
 
+
+// POST /comments
+//   USAGE:
+//     Add a comment to a post
+
+//   PARAMS:
+//     id: Any unique ID. As with posts, UUID is probably the best here.
+//     timestamp: timestamp. Get this however you want.
+//     body: String
+//     author: String
+//     parentId: Should match a post id in the database.
+export const addNewComment = (comment) => (
+  fetch(`${api}/comments`, { headers, method: 'POST', body: JSON.stringify(comment)})
+	.then((res) => res.json())
+)
+
 // GET /posts/:id
 //     USAGE:
 //       Get the details of a single post

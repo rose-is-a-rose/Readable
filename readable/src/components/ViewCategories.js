@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Post from './Post';
-import { connect } from 'react-redux';
-import AddPost from './AddPost';
-import Modal from 'react-modal';
 import Select from 'react-select';
+import Modal from 'react-modal';
+import { connect } from 'react-redux';
 import 'react-select/dist/react-select.css';
+import Post from './Post';
+import AddPost from './AddPost';
 
 class ViewCategories extends Component {
 
   state= {
     addPostModalOpen: false,
-    sortBy: ''
+    sortBy: 'voteScore'
   }
 
   renderPosts = (category) => {
-    debugger
     return (
       this.sortPosts(this.filterPostsByCategory(this.props.posts, category), this.state.sortBy)
       .map(post =>
@@ -31,7 +29,6 @@ class ViewCategories extends Component {
   )
 
   sortPosts = (posts, sortBy = '') => {
-    debugger
     if (sortBy) {
       return posts.sort((postA, postB) => {
         if (postA[sortBy] > postB[sortBy]) {
@@ -48,12 +45,18 @@ class ViewCategories extends Component {
   }
 
   sortOptions = (posts) => {
-    return Object.keys(posts[0]).map(key => {
-      return key !== 'id' && key !== 'deleted' && {
-          value: key,
-          label: key
-        } || {}
-    })
+    if (posts) {
+      return Object.keys(posts[0]).map(key => {
+        if (key !== 'id' && key !== 'deleted') {
+          return {
+            value: key,
+            label: key
+          };
+        }
+        return {};
+      })
+    }
+    return {}
   }
 
   render() {
@@ -65,9 +68,10 @@ class ViewCategories extends Component {
             <Select
               onChange={selected =>
                 this.setState({
-                  sortBy: selected.value
+                  sortBy: selected ? selected.value : ''
                 })}
-              options={this.sortOptions(this.filterPostsByCategory(this.props.posts, this.props.category))}
+              value={this.state.sortBy}
+              options={this.sortOptions(this.props.posts)}
             >
             </Select>
           </div>
@@ -92,7 +96,6 @@ class ViewCategories extends Component {
 
 // map redux state to component props
 function mapStateToProps({ posts }) {
-
  return { posts };
 }
 

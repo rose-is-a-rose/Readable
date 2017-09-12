@@ -12,8 +12,7 @@ class AddPost extends Component {
     title: '',
     body: '',
     author: '',
-    category: '',
-    modalOpen: true
+    category: ''
   }
 
   handleSubmit = (e) => {

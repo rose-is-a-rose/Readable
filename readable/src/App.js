@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
+import { withRouter } from 'react-router';
+import { Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getComments } from './actions';
 import './App.css';
-import Post from './components/Post'
-import { connect } from 'react-redux'
-import { addPost, getComments } from './actions'
-import ViewPost from './components/ViewPost'
-import AddPost from './components/AddPost'
-import ViewCategories from './components/ViewCategories'
-import { withRouter } from 'react-router'
+import Post from './components/Post';
+import ViewPost from './components/ViewPost';
+import ViewCategories from './components/ViewCategories';
 
 class App extends Component {
 

@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import Modal from 'react-modal';
 import { addPostToServer } from '../actions'
 import Post from '../components/Post'
 import Comment from '../components/Comment'
-import Modal from 'react-modal';
-import { Link } from 'react-router-dom';
+import AddComment from '../components/AddComment'
 
 class ViewPost extends Component {
-
-  constructor (props){
-    super(props);
-  }
 
   state = {
     addCommentModalOpen: false
@@ -47,7 +43,7 @@ class ViewPost extends Component {
           isOpen={this.state.addCommentModalOpen}
           onRequestClose={()=> this.setState({addCommentModalOpen: false})}
         >
-          Hello
+          <AddComment postID={this.props.postID} />
         </Modal>
       </div>
 
