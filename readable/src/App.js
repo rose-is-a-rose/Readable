@@ -67,8 +67,8 @@ class App extends Component {
 
 // map redux state to component props
 function mapStateToProps({ posts, categories }) {
-
- return { posts, categories };
+  posts = posts.filter(post => !post.deleted);
+  return { posts, categories };
 }
 
 // map dispatch methods to component props

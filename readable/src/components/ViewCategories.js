@@ -96,7 +96,8 @@ class ViewCategories extends Component {
 
 // map redux state to component props
 function mapStateToProps({ posts }) {
- return { posts };
+  posts = posts.filter(post => !post.deleted);
+  return { posts };
 }
 
 export default connect(mapStateToProps, null)(ViewCategories);

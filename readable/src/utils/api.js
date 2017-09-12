@@ -60,3 +60,13 @@ export const getCommentsForPost = (postID) => (
 	fetch(`${api}/posts/${postID}/comments`, { headers, method: 'GET' })
   .then((res) => res.json())
 )
+
+
+// DELETE /comments/:id
+//   USAGE:
+//     Sets a comment's deleted flag to 'true'
+
+export const deleteComment = (commentID) => (
+	fetch(`${api}/comments/${commentID}`, { headers, method: 'DELETE' })
+  .then((res) => res.json())
+)

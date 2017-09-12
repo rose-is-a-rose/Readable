@@ -19,7 +19,13 @@ class ViewPost extends Component {
   }
 
   getCommentForPost = (postID) => {
-    return (this.props.comments && this.props.comments[postID]) || [];
+    const comments =
+      this.props.comments && this.props.comments[postID];
+    let nonDeletedComments = [];
+    if (comments) {
+      nonDeletedComments = comments.filter(c => !c.deleted);
+    }
+    return nonDeletedComments;
   }
 
   render() {
@@ -53,7 +59,8 @@ class ViewPost extends Component {
 
 // map redux state to component props
 function mapStateToProps({ posts, comments }) {
- return { posts, comments };
+  posts = posts.filter(post => !post.deleted);
+  return { posts, comments };
 }
 
 // map dispatch methods to component props
