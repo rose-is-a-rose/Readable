@@ -3,13 +3,16 @@ import {
 	getCommentsForPost,
 	addNewComment,
 	deleteComment,
-	updateComment
+	updateComment,
+	votePost
 } from '../utils/api';
 
 export const ADD_POST = 'ADD_POST';
 export const ADD_COMMENTS = 'ADD_COMMENTS';
 export const DELETE_COMMENTS = 'DELETE_COMMENTS';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+export const UPVOTE_POST = 'UPVOTE_POST';
+export const DOWNVOTE_POST = 'DOWNVOTE_POST';
 
 export const addPost = ( post ) => (
  {
@@ -18,7 +21,7 @@ export const addPost = ( post ) => (
 	}
 )
 
-export const addComments = ( postID, comments ) => (
+export const addCommentsToStore = ( postID, comments ) => (
 	{
 		type: ADD_COMMENTS,
 		postID,
@@ -39,6 +42,20 @@ export const deleteComments = ( deletedComment ) => (
 	}
 )
 
+export const upVotePostToStore = ( post ) => (
+	{
+		type: UPVOTE_POST,
+		post
+	}
+)
+
+export const downVotePostToStore = ( post ) => (
+	{
+		type: DOWNVOTE_POST,
+		post
+	}
+)
+
 export const addPostToServer = ( post ) => dispatch => (
 	addNewPost(post).then((res) => {
 		dispatch(addPost(res))
@@ -47,7 +64,7 @@ export const addPostToServer = ( post ) => dispatch => (
 
 export const addCommentToServer = ( comment ) => dispatch => (
   addNewComment(comment).then((res) => {
-		dispatch(addComments(comment.parentId, res))
+		dispatch(addCommentsToStore(comment.parentId, res))
 	})
 )
 
@@ -63,9 +80,21 @@ export const deleteCommentToServer = ( commentID ) => dispatch => (
 	})
 )
 
+export const upVotePostToServer = ( postID ) => dispatch => (
+	votePost({id: postID, votingType: 'upVote'}).then((res) => {
+		dispatch(upVotePostToStore(res))
+	})
+)
+
+export const downVotePostToServer = ( postID ) => dispatch => (
+	votePost({id: postID, votingType: 'downVote'}).then((res) => {
+		dispatch(downVotePostToStore(res))
+	})
+)
+
 export const getComments = ( postID ) => dispatch => {
 	getCommentsForPost(postID).then(res => {
-		dispatch(addComments(postID, res));
+		dispatch(addCommentsToStore(postID, res));
 	})
 }
 

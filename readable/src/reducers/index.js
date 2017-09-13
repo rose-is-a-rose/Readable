@@ -2,14 +2,16 @@ import {
 	ADD_POST,
 	ADD_COMMENTS,
 	DELETE_COMMENTS,
-	UPDATE_COMMENT
+	UPDATE_COMMENT,
+	UPVOTE_POST,
+	DOWNVOTE_POST
 } from '../actions';
 
 export default ( state = {}, action) => {
+  const { post } = action;
 
   switch (action.type) {
     case ADD_POST :
-      const { post } = action;
 
       return {
         ...state,
@@ -35,6 +37,23 @@ export default ( state = {}, action) => {
       	}
       }
 
+    case UPVOTE_POST :
+      state.posts.find(p =>
+      	p.id === post.id
+    	).voteScore++;
+
+      return {
+        ...state
+      }
+    case DOWNVOTE_POST :
+      state.posts.find(p =>
+      	p.id === post.id
+    	).voteScore--;
+
+      return {
+        ...state
+      }
+
     case ADD_COMMENTS :
       if (!state.comments) {
       	state.comments = {};
@@ -49,6 +68,7 @@ export default ( state = {}, action) => {
         	[action.postID]: state.comments[action.postID].concat(action.comments)
       	}
       }
+
     case UPDATE_COMMENT :
       const { id, body, timestamp, parentId } = action.comment;
 

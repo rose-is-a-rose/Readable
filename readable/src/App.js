@@ -22,7 +22,7 @@ class App extends Component {
       .filter(post =>
         category ? post.category === category : true
       ).map(post =>
-        <Post key={post.id} post={post}/>
+        <Post key={post.id} postID={post.id}/>
       )
     )
   }

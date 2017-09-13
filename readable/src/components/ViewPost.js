@@ -32,7 +32,7 @@ class ViewPost extends Component {
     const post = this.getPostDetailFromStore();
     return (
       <div>
-        <Post post={post} />
+        <Post postID={post.id} />
         { this.getCommentForPost(post.id).map(comment => (
             <Comment key={comment.id} comment={comment} />
           ))

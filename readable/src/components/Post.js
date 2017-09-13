@@ -1,37 +1,92 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
+import Modal from 'react-modal';
+import { downVotePostToServer, upVotePostToServer } from '../actions'
 
 function convertTimestampToDateTime (timestamp) {
   const date = new Date(timestamp);
   return `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`
 }
 
-export default function Post ({ post }) {
+class Post extends Component {
 
-	return (
-    <div className="card blue-grey lighten-4">
-      <div className="card-content">
-        <span className="orange-text text-darken-2 right">
-          {convertTimestampToDateTime(post.timestamp)}
-          <br/>
-          Vote: {post.voteScore}
-        </span>
-        <p>
-          <a
-            href={`/post/${post.id}`}
-            className="card-title orange-text text-darken-4"
-          >
-            {post.category} - {post.title}
-          </a>
-        </p>
-        <p className="grey-text text-darken-4">
-          Author: {post.author}
-        </p>
-        <blockquote className="grey-text text-darken-4">
-          <p className="flow-text">
-            {post.body}
+  render() {
+    const { postID, posts } = this.props;
+    const post = posts.find(p => p.id === postID);
+    debugger
+  	return (
+      <div className="card blue-grey lighten-4">
+        <div className="card-content">
+          <span className="orange-text text-darken-2 right">
+            {convertTimestampToDateTime(post.timestamp)}
+            <br/>
+            Vote: {post.voteScore}
+          </span>
+          <p>
+            <a
+              href={`/post/${post.id}`}
+              className="card-title orange-text text-darken-4"
+            >
+              {post.category} - {post.title}
+            </a>
           </p>
-        </blockquote>
+          <p className="grey-text text-darken-4">
+            Author: {post.author}
+          </p>
+          <blockquote className="grey-text text-darken-4">
+            <p className="flow-text">
+              {post.body}
+            </p>
+          </blockquote>
+          <div className="row">
+            <div className="col s3 m3 l3">
+              <button
+                className="btn full-width"
+                onClick={()=>this.props.handleUpvoteComment(post.id)}
+              >
+                Upvote
+              </button>
+            </div>
+            <div className="col s3 m3 l3">
+              <button className="btn full-width"
+                onClick={()=>this.props.handleDownvoteComment(post.id)}
+              >
+                Downvote
+              </button>
+            </div>
+            <div className="col s3 m3 l3">
+              <button
+                className="btn full-width"
+              >
+                Delete
+              </button>
+            </div>
+            <div className="col s3 m3 l3">
+              <button
+                className="btn full-width"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-	)
+  	)
+  }
 }
+
+// map redux state to component props
+function mapStateToProps({ posts }) {
+  posts = posts.filter(post => !post.deleted);
+  return { posts };
+}
+
+// map dispatch methods to component props
+function mapDispatchToProps(dispatch) {
+  return {
+    handleUpvoteComment: (data) => dispatch(upVotePostToServer(data)),
+    handleDownvoteComment: (data) => dispatch(downVotePostToServer(data))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

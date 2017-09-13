@@ -17,7 +17,7 @@ class ViewCategories extends Component {
     return (
       this.sortPosts(this.filterPostsByCategory(this.props.posts, category), this.state.sortBy)
       .map(post =>
-        <Post key={post.id} post={post}/>
+        <Post key={post.id} postID={post.id}/>
       )
     )
   }
