@@ -32,7 +32,7 @@ class App extends Component {
       <div>
         <nav>
           <div className="nav-wrapper">
-            <Link to="/" className="brand-logo left">Readable</Link>
+            <Link to="/" className="brand-logo left padding-left-small">Readable</Link>
             <ul id="nav-mobile" className="right">
               {this.props.categories && this.props.categories.map(c =>
                 <li key={c.name}>

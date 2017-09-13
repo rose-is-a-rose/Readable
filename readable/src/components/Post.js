@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 function convertTimestampToDateTime (timestamp) {
   const date = new Date(timestamp);

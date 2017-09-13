@@ -1,4 +1,3 @@
-// import { combineReducers } from 'redux'
 import {
 	ADD_POST,
 	ADD_COMMENTS,
@@ -51,7 +50,6 @@ export default ( state = {}, action) => {
       	}
       }
     case UPDATE_COMMENT :
-    debugger
       const { id, body, timestamp, parentId } = action.comment;
 
       siblingComments = state.comments[parentId];
@@ -74,6 +72,3 @@ export default ( state = {}, action) => {
 
 }
 
-// export default combineReducers({
-//   posts
-// })

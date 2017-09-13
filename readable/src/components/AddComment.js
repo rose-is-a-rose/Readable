@@ -12,7 +12,7 @@ class AddComment extends Component {
   componentDidMount() {
     if (this.props.commentID && this.props.comments) {
       const comment = this.props.comments[this.props.postID].find(c =>
-        c.id == this.props.commentID
+        c.id === this.props.commentID
       );
       if (comment) {
         this.setState({
