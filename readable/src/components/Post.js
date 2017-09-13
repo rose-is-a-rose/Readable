@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-modal';
-import { downVotePostToServer, upVotePostToServer } from '../actions'
+import { downVotePostToServer, upVotePostToServer, deletePostToServer } from '../actions'
 
 function convertTimestampToDateTime (timestamp) {
   const date = new Date(timestamp);
@@ -55,8 +55,8 @@ class Post extends Component {
               </button>
             </div>
             <div className="col s3 m3 l3">
-              <button
-                className="btn full-width"
+              <button className="btn full-width"
+                onClick={()=>this.props.handleDeletePost(post.id)}
               >
                 Delete
               </button>
@@ -85,7 +85,8 @@ function mapStateToProps({ posts }) {
 function mapDispatchToProps(dispatch) {
   return {
     handleUpvoteComment: (data) => dispatch(upVotePostToServer(data)),
-    handleDownvoteComment: (data) => dispatch(downVotePostToServer(data))
+    handleDownvoteComment: (data) => dispatch(downVotePostToServer(data)),
+    handleDeletePost: (data) => dispatch(deletePostToServer(data))
   }
 }
 

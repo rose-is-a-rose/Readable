@@ -4,7 +4,8 @@ import {
 	DELETE_COMMENTS,
 	UPDATE_COMMENT,
 	UPVOTE_POST,
-	DOWNVOTE_POST
+	DOWNVOTE_POST,
+	DELETE_POST
 } from '../actions';
 
 export default ( state = {}, action) => {
@@ -85,6 +86,28 @@ export default ( state = {}, action) => {
         	...state.comments,
         	[parentId]: siblingComments
       	}
+      }
+
+    case DELETE_POST:
+      const comments = state.comments[post.id];
+      if (comments) {
+	      comments.forEach(comment =>
+	      	comment.deleted = true
+	      )
+      }
+      const deletedPost = state.posts.find(p =>
+      	p.id === post.id
+    	);
+      deletedPost.deleted = true;
+
+      return {
+        ...state,
+        comments: {
+        	...state.comments
+        },
+        posts: [
+        	...state.posts
+        ]
       }
     default :
       return state

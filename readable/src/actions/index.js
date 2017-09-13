@@ -4,7 +4,8 @@ import {
 	addNewComment,
 	deleteComment,
 	updateComment,
-	votePost
+	votePost,
+	deletePost
 } from '../utils/api';
 
 export const ADD_POST = 'ADD_POST';
@@ -13,6 +14,7 @@ export const DELETE_COMMENTS = 'DELETE_COMMENTS';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const UPVOTE_POST = 'UPVOTE_POST';
 export const DOWNVOTE_POST = 'DOWNVOTE_POST';
+export const DELETE_POST = 'DELETE_POST';
 
 export const addPost = ( post ) => (
  {
@@ -56,9 +58,23 @@ export const downVotePostToStore = ( post ) => (
 	}
 )
 
+export const deletePostToStore = ( id ) => (
+	{
+		type: DELETE_POST,
+		post: {id}
+	}
+)
+
 export const addPostToServer = ( post ) => dispatch => (
 	addNewPost(post).then((res) => {
 		dispatch(addPost(res))
+	})
+)
+
+export const deletePostToServer = ( postID ) => dispatch => (
+	deletePost(postID).then((res) => {
+		debugger
+		dispatch(deletePostToStore(postID))
 	})
 )
 

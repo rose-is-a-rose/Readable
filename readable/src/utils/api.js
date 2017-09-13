@@ -88,14 +88,15 @@ export const updatePost = ({id, body, title}) => (
 	).then((res) => res.json())
 )
 
-export const deletePost = ({id}) => (
+export const deletePost = (id) => (
 	fetch(
 		`${api}/posts/${id}`,
 		{
 			headers,
 			method: 'DELETE'
 		}
-	).then((res) => res.json())
+	)
+	// .then((res) => { debugger; const result = res.json(); console.log(result); return result})
 )
 
 export const votePost = ({id, votingType}) => (
