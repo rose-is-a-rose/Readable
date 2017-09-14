@@ -23,7 +23,7 @@ class AddComment extends Component {
     }
   }
 
-  handleAddPost = (e) => {
+  addComment = (e) => {
     e.preventDefault()
     this.props.handleAddComment({
       body:this.state.body,
@@ -34,7 +34,7 @@ class AddComment extends Component {
     })
   }
 
-  handleUpdatePost = (e) => {
+  updateComment = (e) => {
     e.preventDefault()
     this.props.handleUpdateComment({
       body:this.state.body,
@@ -85,8 +85,8 @@ class AddComment extends Component {
         )}
         <button className="btn right"
           onClick={(e) => (this.props.commentID
-                        ? this.handleUpdatePost(e)
-                        : this.handleAddPost(e))}
+                        ? this.updateComment(e)
+                        : this.addComment(e))}
         >
           Save
         </button>

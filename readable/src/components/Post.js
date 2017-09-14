@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-modal';
 import { downVotePostToServer, upVotePostToServer, deletePostToServer } from '../actions'
+import AddPost from '../components/AddPost'
 
 function convertTimestampToDateTime (timestamp) {
   const date = new Date(timestamp);
@@ -9,12 +10,15 @@ function convertTimestampToDateTime (timestamp) {
 }
 
 class Post extends Component {
+  state = {
+    editPostModalOpen: false
+  }
 
   render() {
     const { postID, posts } = this.props;
     const post = posts.find(p => p.id === postID);
-    debugger
-  	return (
+
+    return (
       <div className="card blue-grey lighten-4">
         <div className="card-content">
           <span className="orange-text text-darken-2 right">
@@ -64,12 +68,19 @@ class Post extends Component {
             <div className="col s3 m3 l3">
               <button
                 className="btn full-width"
+                onClick={()=>this.setState({editPostModalOpen: true})}
               >
                 Edit
               </button>
             </div>
           </div>
         </div>
+        <Modal contentLabel="Modal"
+          isOpen={this.state.editPostModalOpen}
+          onRequestClose={()=> this.setState({editPostModalOpen: false})}
+        >
+          <AddPost postID={post.id} />
+        </Modal>
       </div>
   	)
   }

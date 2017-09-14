@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { addPostToServer } from '../actions'
-import ReactMaterialSelect from 'react-material-select'
-import 'react-material-select/lib/css/reactMaterialSelect.css'
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+import { addPostToServer, updatePostToServer } from '../actions';
 
 class AddPost extends Component {
 
@@ -15,7 +15,24 @@ class AddPost extends Component {
     category: ''
   }
 
-  handleSubmit = (e) => {
+  componentDidMount() {
+    if (this.props.postID && this.props.posts) {
+      const post = this.props.posts.find(post =>
+        post.id === this.props.postID
+      );
+      if (post) {
+        this.setState({
+          id: post.id,
+          title: post.title,
+          body: post.body,
+          author: post.author,
+          category: post.category
+        })
+      };
+    }
+  }
+
+  addPost = (e) => {
     e.preventDefault()
     this.props.handleAddPost({
       title:this.state.title,
@@ -27,28 +44,51 @@ class AddPost extends Component {
     })
   }
 
+  updatePost = (e) => {
+    e.preventDefault()
+    this.props.handleUpdatePost({
+      body:this.state.body,
+      title: this.state.title,
+      id: this.props.postID
+    })
+  }
+
+  categoryOptions = () => {
+    if (this.props.categories) {
+      return this.props.categories.map(category => {
+          return {
+            value: category.name,
+            label: category.name
+          };
+      })
+    }
+    return {}
+  }
+
   render() {
+
+    const existingPost = !!this.props.postID;
+
     return (
       <div>
         <div className="row">
           <div className="col s6 m4 l4">
-            <h4>Add a Post</h4>
+            <h4>{existingPost ? 'Update Post' : 'Add a Post'}</h4>
           </div>
           <div className="col s6 m8 l8">
-            <ReactMaterialSelect
-              label="Post Category"
-              defaultValue={this.state.category}
-              onChange={(selected) => {
+
+            <label>Category</label>
+            <Select
+              onChange={(selected) =>
                 this.setState({
-                  category: selected.value
-                })}}
+                  category: selected ? selected.value : ''
+                })
+              }
+              value={this.state.category}
+              options={this.categoryOptions()}
+              disabled={existingPost}
             >
-            {this.props.categories.map(category => (
-              <option key={category.name} dataValue={category.name}>
-                {category.name}
-              </option>
-            ))}
-            </ReactMaterialSelect>
+            </Select>
           </div>
         </div>
         <div className="input-field">
@@ -60,7 +100,7 @@ class AddPost extends Component {
             })}
             value={this.state.title}
           />
-          <label htmlFor="title">Post Title</label>
+          <label htmlFor="title" className="active">Post Title</label>
         </div>
         <div className="input-field">
           <textarea className="materialize-textarea"
@@ -70,7 +110,7 @@ class AddPost extends Component {
             })}
             value={this.state.body}
           ></textarea>
-          <label htmlFor="body">Post Body</label>
+          <label htmlFor="body" className="active">Post Body</label>
         </div>
         <div className="input-field">
           <input
@@ -80,14 +120,17 @@ class AddPost extends Component {
               author: e.target.value
             })}
             value={this.state.author}
+            disabled={existingPost}
           />
-          <label htmlFor="author">Post Author</label>
+          <label htmlFor="author" className="active">Post Author</label>
         </div>
         <button
           className="btn"
-          onClick={(e) => this.handleSubmit(e)}
+          onClick={(e) => (this.props.postID
+              ? this.updatePost(e)
+              : this.addPost(e))}
         >
-          Add Post
+          Save
         </button>
       </div>
     );
@@ -95,14 +138,15 @@ class AddPost extends Component {
 }
 
 // map redux state to component props
-function mapStateToProps({ categories }) {
- return { categories };
+function mapStateToProps({ categories, posts }) {
+ return { categories, posts };
 }
 
 // map dispatch methods to component props
 function mapDispatchToProps(dispatch) {
   return {
-    handleAddPost: (data) => dispatch(addPostToServer(data))
+    handleAddPost: (data) => dispatch(addPostToServer(data)),
+    handleUpdatePost: (data) => dispatch(updatePostToServer(data)),
   }
 }
 

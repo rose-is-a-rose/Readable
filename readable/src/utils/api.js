@@ -85,7 +85,7 @@ export const updatePost = ({id, body, title}) => (
 			method: 'PUT',
 			body: JSON.stringify({body, title})
 		}
-	).then((res) => res.json())
+	)
 )
 
 export const deletePost = (id) => (
