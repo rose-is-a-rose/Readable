@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
+import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import Post from './Post';
 import AddPost from './AddPost';
 
+/**
+ * Component that displays all categories and all active posts.
+ */
 class ViewCategories extends Component {
 
   state= {
@@ -13,6 +16,13 @@ class ViewCategories extends Component {
     sortBy: 'voteScore'
   }
 
+  /**
+   * Render Posts.
+   * If a category is specified, then filter posts down in that category.
+   * Sort those post based on sorting selection
+   * Then render post component.
+   * @param {category} if given, then only render the posts under that category
+   */
   renderPosts = (category) => {
     return (
       this.sortPosts(this.filterPostsByCategory(this.props.posts, category), this.state.sortBy)
@@ -22,12 +32,23 @@ class ViewCategories extends Component {
     )
   }
 
+  /**
+   * Filter Posts by category.
+   * If a category is specified, then filter posts down in that category.
+   * @param {posts} Array of posts.
+   * @param {category}
+   */
   filterPostsByCategory = (posts, category) => (
     posts.filter(post =>
       category ? post.category === category : true
     )
   )
 
+  /**
+   * Sort posts based on sortBy selection value.
+   * @param {posts} Array of posts.
+   * @param {sortBy} The key of the post object to sort on.
+   */
   sortPosts = (posts, sortBy = '') => {
     if (sortBy) {
       return posts.sort((postA, postB) => {
@@ -44,6 +65,11 @@ class ViewCategories extends Component {
     return posts;
   }
 
+  /**
+   * The sorting options
+   * will filter out id or deleted keys. but will return all other keys from a post.
+   * @param {posts} Array of posts.
+   */
   sortOptions = (posts) => {
     if (posts) {
       return Object.keys(posts[0]).map(key => {

@@ -6,18 +6,28 @@ import Post from '../components/Post'
 import Comment from '../components/Comment'
 import AddComment from '../components/AddComment'
 
+/**
+ * Component that displays a post and its comments.
+ */
 class ViewPost extends Component {
 
   state = {
     addCommentModalOpen: false
   }
 
+  /**
+   * Get Post detail from store
+   */
   getPostDetailFromStore = () => {
     return this.props.posts.find((post) => (
       post.id === this.props.postID
     ));
   }
 
+  /**
+   * Get comments from store for a specific post
+   * @param {postID} The ID of the post
+   */
   getCommentForPost = (postID) => {
     const comments =
       this.props.comments && this.props.comments[postID];

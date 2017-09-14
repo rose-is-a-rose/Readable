@@ -4,7 +4,6 @@ import { Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getComments } from './actions';
 import './App.css';
-import Post from './components/Post';
 import ViewPost from './components/ViewPost';
 import ViewCategories from './components/ViewCategories';
 
@@ -14,17 +13,6 @@ class App extends Component {
     this.props.posts.forEach(post => {
       this.props.handleGetCommentsForPost(post.id)
     })
-  }
-
-  renderPosts = (category) => {
-    return (
-      this.props.posts
-      .filter(post =>
-        category ? post.category === category : true
-      ).map(post =>
-        <Post key={post.id} postID={post.id}/>
-      )
-    )
   }
 
   render() {

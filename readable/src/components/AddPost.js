@@ -4,6 +4,9 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { addPostToServer, updatePostToServer } from '../actions';
 
+/**
+ * Component to add or update post
+ */
 class AddPost extends Component {
 
   state= {
@@ -32,6 +35,10 @@ class AddPost extends Component {
     }
   }
 
+  /**
+   * Add Post
+   * @param {e} Event
+   */
   addPost = (e) => {
     e.preventDefault()
     this.props.handleAddPost({
@@ -44,6 +51,10 @@ class AddPost extends Component {
     })
   }
 
+  /**
+   * Update Post
+   * @param {e} Event
+   */
   updatePost = (e) => {
     e.preventDefault()
     this.props.handleUpdatePost({
@@ -53,6 +64,10 @@ class AddPost extends Component {
     })
   }
 
+  /**
+   * Return Category Options
+   * @return an array of option object.
+   */
   categoryOptions = () => {
     if (this.props.categories) {
       return this.props.categories.map(category => {
@@ -62,7 +77,7 @@ class AddPost extends Component {
           };
       })
     }
-    return {}
+    return [{}]
   }
 
   render() {

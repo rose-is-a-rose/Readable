@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { addCommentToServer, updateCommentToServer } from '../actions'
 
+/**
+ * Component to add or update comment
+ */
 class AddComment extends Component {
 
   state = {
@@ -23,6 +26,10 @@ class AddComment extends Component {
     }
   }
 
+  /**
+   * Add Comment
+   * @param {e} Event
+   */
   addComment = (e) => {
     e.preventDefault()
     this.props.handleAddComment({
@@ -34,6 +41,10 @@ class AddComment extends Component {
     })
   }
 
+  /**
+   * Update Comment
+   * @param {e} Event
+   */
   updateComment = (e) => {
     e.preventDefault()
     this.props.handleUpdateComment({
