@@ -49,21 +49,21 @@ class Post extends Component {
             <div className="col s3 m3 l3">
               <button
                 className="btn full-width"
-                onClick={()=>this.props.handleUpvoteComment(post.id)}
+                onClick={()=>this.props.upVotePostToServer(post.id)}
               >
                 Upvote
               </button>
             </div>
             <div className="col s3 m3 l3">
               <button className="btn full-width"
-                onClick={()=>this.props.handleDownvoteComment(post.id)}
+                onClick={()=>this.props.downVotePostToServer(post.id)}
               >
                 Downvote
               </button>
             </div>
             <div className="col s3 m3 l3">
               <button className="btn full-width"
-                onClick={()=>this.props.handleDeletePost(post.id)}
+                onClick={()=>this.props.deletePostToServer(post.id)}
               >
                 Delete
               </button>
@@ -95,13 +95,4 @@ function mapStateToProps({ posts }) {
   return { posts };
 }
 
-// map dispatch methods to component props
-function mapDispatchToProps(dispatch) {
-  return {
-    handleUpvoteComment: (data) => dispatch(upVotePostToServer(data)),
-    handleDownvoteComment: (data) => dispatch(downVotePostToServer(data)),
-    handleDeletePost: (data) => dispatch(deletePostToServer(data))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default connect(mapStateToProps, { upVotePostToServer, downVotePostToServer, deletePostToServer })(Post);

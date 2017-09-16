@@ -113,7 +113,7 @@ class ViewCategories extends Component {
           isOpen={this.state.addPostModalOpen}
           onRequestClose={()=> this.setState({addPostModalOpen: false})}
         >
-          <AddPost />
+          <AddPost closeModal={() => this.setState({addPostModalOpen: false})}/>
         </Modal>
       </div>
     );

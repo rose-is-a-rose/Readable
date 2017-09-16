@@ -40,7 +40,7 @@ class Comment extends Component {
             <div className="col offset-s6 offset-m6 offset-l6 s3 m3 l3">
               <button
                 className="btn full-width"
-                onClick={()=>this.props.handleDeleteComment(comment.id)}
+                onClick={()=>this.props.deleteCommentToServer(comment.id)}
               >
                 Delete
               </button>
@@ -66,11 +66,4 @@ class Comment extends Component {
   }
 }
 
-// map dispatch methods to component props
-function mapDispatchToProps(dispatch) {
-  return {
-    handleDeleteComment: (data) => dispatch(deleteCommentToServer(data))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Comment);
+export default connect(null, { deleteCommentToServer })(Comment);

@@ -32,7 +32,7 @@ class AddComment extends Component {
    */
   addComment = (e) => {
     e.preventDefault()
-    this.props.handleAddComment({
+    this.props.addCommentToServer({
       body:this.state.body,
       author:this.state.author,
       parentId: this.props.postID,
@@ -49,7 +49,7 @@ class AddComment extends Component {
    */
   updateComment = (e) => {
     e.preventDefault()
-    this.props.handleUpdateComment({
+    this.props.updateCommentToServer({
       body:this.state.body,
       timestamp: new Date().getTime(),
       id: this.props.commentID
@@ -116,12 +116,4 @@ function mapStateToProps({ comments }) {
   return { comments };
 }
 
-// map dispatch methods to component props
-function mapDispatchToProps(dispatch) {
-  return {
-    handleAddComment: (data) => dispatch(addCommentToServer(data)),
-    handleUpdateComment: (data) => dispatch(updateCommentToServer(data))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddComment);
+export default connect(mapStateToProps, {addCommentToServer, updateCommentToServer})(AddComment);

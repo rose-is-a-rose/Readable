@@ -73,11 +73,4 @@ function mapStateToProps({ posts, comments }) {
   return { posts, comments };
 }
 
-// map dispatch methods to component props
-function mapDispatchToProps(dispatch) {
-  return {
-    handleAddPost: (data) => dispatch(addPostToServer(data))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ViewPost);
+export default connect(mapStateToProps, { addPostToServer })(ViewPost);

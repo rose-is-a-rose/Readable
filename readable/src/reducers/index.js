@@ -7,7 +7,8 @@ import {
 	DOWNVOTE_POST,
 	DELETE_POST,
 	UPDATE_POST
-} from '../actions';
+} from '../actions/types';
+
 
 export default ( state = {}, action) => {
   const { post } = action;

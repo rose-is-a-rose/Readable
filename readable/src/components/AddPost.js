@@ -41,7 +41,7 @@ class AddPost extends Component {
    */
   addPost = (e) => {
     e.preventDefault()
-    this.props.handleAddPost({
+    this.props.addPostToServer({
       title:this.state.title,
       body:this.state.body,
       author:this.state.author,
@@ -59,7 +59,7 @@ class AddPost extends Component {
    */
   updatePost = (e) => {
     e.preventDefault()
-    this.props.handleUpdatePost({
+    this.props.updatePostToServer({
       body:this.state.body,
       title: this.state.title,
       id: this.props.postID
@@ -73,15 +73,14 @@ class AddPost extends Component {
    * @return an array of option object.
    */
   categoryOptions = () => {
-    if (this.props.categories) {
-      return this.props.categories.map(category => {
+    return this.props.categories
+    ? this.props.categories.map(category => {
           return {
             value: category.name,
             label: category.name
           };
       })
-    }
-    return [{}]
+    : [{}]
   }
 
   render() {
@@ -161,12 +160,4 @@ function mapStateToProps({ categories, posts }) {
  return { categories, posts };
 }
 
-// map dispatch methods to component props
-function mapDispatchToProps(dispatch) {
-  return {
-    handleAddPost: (data) => dispatch(addPostToServer(data)),
-    handleUpdatePost: (data) => dispatch(updatePostToServer(data)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddPost);
+export default connect(mapStateToProps, {addPostToServer, updatePostToServer})(AddPost);
