@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getComments } from './actions';
 import './App.css';
@@ -11,9 +11,15 @@ class App extends Component {
 
   componentWillMount() {
     this.props.posts.forEach(post => {
-      this.props.handleGetCommentsForPost(post.id)
+      this.props.getComments(post.id)
     })
   }
+
+  notFoundText = () => (
+    <p className="flow-text">
+      Oops.. The page you are looking for does not exist.
+    </p>
+  )
 
   render() {
     return (
@@ -32,22 +38,29 @@ class App extends Component {
             </ul>
           </div>
         </nav>
+        <Switch>
+          <Route exact path='/' render={() =>
+            <ViewCategories />
+          }/>
 
-        <Route exact path='/' render={() =>
-          <ViewCategories />
-        }/>
+          <Route exact path='/post/:post_id' render={({match}) => (
+            this.props.posts.find(post => post.id === match.params.post_id)
+            ? <ViewPost postID={match.params.post_id} />
+            : this.notFoundText()
+          )
+          }/>
 
-        <Route exact path='/post/:post_id' render={({match}) =>
-          <ViewPost postID={match.params.post_id} />
-        }/>
-
-        <Route
-          path='/category/:category'
-          exact
-          render={({match}) =>
-            <ViewCategories category={match.params.category} />
-          }
-        />
+          <Route
+            path='/category/:category'
+            exact
+            render={({match}) =>
+              <ViewCategories category={match.params.category} />
+            }
+          />
+          <Route
+            render={this.notFoundText}
+          />
+        </Switch>
       </div>
     );
   }
@@ -59,11 +72,4 @@ function mapStateToProps({ posts, categories }) {
   return { posts, categories };
 }
 
-// map dispatch methods to component props
-function mapDispatchToProps(dispatch) {
-  return {
-    handleGetCommentsForPost: (data) => dispatch(getComments(data))
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, { getComments })(App));

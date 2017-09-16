@@ -8,6 +8,7 @@ import {
 	deletePost,
 	updatePost
 } from '../utils/api';
+
 import {
 	ADD_POST,
 	ADD_COMMENTS,
@@ -129,7 +130,6 @@ export const addPostToServer = ( post ) => dispatch => (
  */
 export const deletePostToServer = ( postID ) => dispatch => (
 	deletePost(postID).then((res) => {
-		debugger
 		dispatch(deletePostToStore(postID))
 	})
 )
