@@ -91,7 +91,6 @@ export default ( state = {}, action) => {
       }
 
     case UPDATE_POST :
-    	debugger
 			const updatedPost = state.posts.find(p =>
       	p.id === post.id
     	);

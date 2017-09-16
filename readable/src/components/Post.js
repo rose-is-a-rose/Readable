@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-modal';
-import { downVotePostToServer, upVotePostToServer, deletePostToServer } from '../actions'
+import { downVotePostToServer, upVotePostToServer, deletePostToServer } from '../actions/PostActions'
 import AddPost from '../components/AddPost'
 
 function convertTimestampToDateTime (timestamp) {

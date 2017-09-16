@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { addCommentToServer, updateCommentToServer } from '../actions'
+import { connect } from 'react-redux';
+import { addCommentToServer, updateCommentToServer } from '../actions/CommentActions';
 
 /**
  * Component to add or update comment

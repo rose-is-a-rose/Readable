@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Modal from 'react-modal';
-import { addPostToServer } from '../actions'
+import { addPostToServer } from '../actions/PostActions'
 import Post from '../components/Post'
 import Comment from '../components/Comment'
 import AddComment from '../components/AddComment'

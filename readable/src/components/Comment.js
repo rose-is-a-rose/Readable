@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-modal';
-import { deleteCommentToServer } from '../actions'
+import { deleteCommentToServer } from '../actions/CommentActions'
 import AddComment from '../components/AddComment'
 
 function convertTimestampToDateTime (timestamp) {

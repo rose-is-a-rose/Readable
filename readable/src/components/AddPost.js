@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-import { addPostToServer, updatePostToServer } from '../actions';
+import { addPostToServer, updatePostToServer } from '../actions/PostActions';
 
 /**
  * Component to add or update post

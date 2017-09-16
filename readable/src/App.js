@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Route, Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getComments } from './actions';
+import { getComments } from './actions/CommentActions';
 import './App.css';
 import ViewPost from './components/ViewPost';
 import ViewCategories from './components/ViewCategories';
