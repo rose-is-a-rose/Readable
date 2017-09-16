@@ -59,7 +59,7 @@ class ViewPost extends Component {
           isOpen={this.state.addCommentModalOpen}
           onRequestClose={()=> this.setState({addCommentModalOpen: false})}
         >
-          <AddComment postID={this.props.postID} />
+          <AddComment postID={this.props.postID} closeModal={()=>this.setState({addCommentModalOpen: false})}/>
         </Modal>
       </div>
 

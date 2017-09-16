@@ -9,6 +9,9 @@ function convertTimestampToDateTime (timestamp) {
   return `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`
 }
 
+/**
+ * Post Component
+ */
 class Post extends Component {
   state = {
     editPostModalOpen: false
@@ -79,7 +82,7 @@ class Post extends Component {
           isOpen={this.state.editPostModalOpen}
           onRequestClose={()=> this.setState({editPostModalOpen: false})}
         >
-          <AddPost postID={post.id} />
+          <AddPost postID={post.id} closeModal={() => this.setState({editPostModalOpen: false})}/>
         </Modal>
       </div>
   	)

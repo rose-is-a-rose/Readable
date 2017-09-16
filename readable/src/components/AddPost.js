@@ -48,6 +48,8 @@ class AddPost extends Component {
       category: this.state.category,
       timestamp: new Date().getTime(),
       id: require("uuid").v4()
+    }).then(() => {
+      this.props.closeModal();
     })
   }
 
@@ -61,6 +63,8 @@ class AddPost extends Component {
       body:this.state.body,
       title: this.state.title,
       id: this.props.postID
+    }).then(() => {
+      this.props.closeModal();
     })
   }
 

@@ -38,6 +38,8 @@ class AddComment extends Component {
       parentId: this.props.postID,
       timestamp: new Date().getTime(),
       id: require("uuid").v4()
+    }).then(() => {
+      this.props.closeModal();
     })
   }
 
@@ -51,6 +53,8 @@ class AddComment extends Component {
       body:this.state.body,
       timestamp: new Date().getTime(),
       id: this.props.commentID
+    }).then(() => {
+      this.props.closeModal();
     })
   }
 

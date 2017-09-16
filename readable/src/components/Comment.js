@@ -9,7 +9,10 @@ function convertTimestampToDateTime (timestamp) {
   return `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`
 }
 
-// const Comment = ({ comment }) => {
+
+/**
+ * Comment Component
+ */
 class Comment extends Component {
 
   state = {
@@ -56,7 +59,7 @@ class Comment extends Component {
           isOpen={this.state.editCommentModalOpen}
           onRequestClose={()=> this.setState({editCommentModalOpen: false})}
         >
-          <AddComment commentID={comment.id} postID={comment.parentId} />
+          <AddComment commentID={comment.id} postID={comment.parentId} closeModal={()=>this.setState({editCommentModalOpen: false})}/>
         </Modal>
       </div>
   	)
