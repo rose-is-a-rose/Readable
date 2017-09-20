@@ -85,7 +85,7 @@ export const updatePost = ({id, body, title}) => (
 			method: 'PUT',
 			body: JSON.stringify({body, title})
 		}
-	)
+	).then((res) => res.json())
 )
 
 export const deletePost = (id) => (
@@ -96,7 +96,6 @@ export const deletePost = (id) => (
 			method: 'DELETE'
 		}
 	)
-	// .then((res) => { debugger; const result = res.json(); console.log(result); return result})
 )
 
 export const votePost = ({id, votingType}) => (
