@@ -18,7 +18,7 @@ class App extends Component {
   notFoundText = () => (
     <p className="flow-text">
       Oops.. The page you are looking for does not exist.
-      <Link to="/">Click to go back to the main page</Link>
+      <Link to="/"> Return to the main page</Link>
     </p>
   )
 
