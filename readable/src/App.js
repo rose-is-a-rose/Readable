@@ -18,17 +18,21 @@ class App extends Component {
   notFoundText = () => (
     <p className="flow-text">
       Oops.. The page you are looking for does not exist.
+      <Link to="/">Click to go back to the main page</Link>
     </p>
   )
 
   render() {
+
+    const { categories, posts } = this.props;
+
     return (
       <div>
         <nav>
           <div className="nav-wrapper">
             <Link to="/" className="brand-logo left padding-left-small">Readable</Link>
             <ul id="nav-mobile" className="right">
-              {this.props.categories && this.props.categories.map(c =>
+              {categories && categories.map(c =>
                 <li key={c.name}>
                   <Link to={`/category/${c.path}`}>
                     {c.name}
@@ -44,7 +48,7 @@ class App extends Component {
           }/>
 
           <Route exact path='/post/:post_id' render={({match}) => (
-            this.props.posts.find(post => post.id === match.params.post_id)
+            posts.find(post => post.id === match.params.post_id)
             ? <ViewPost postID={match.params.post_id} />
             : this.notFoundText()
           )
